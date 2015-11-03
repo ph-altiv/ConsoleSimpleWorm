@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Collections;
+using System.Xml.Linq;
 
 namespace ConsoleSimpleWorm
 {
@@ -41,6 +42,17 @@ namespace ConsoleSimpleWorm
             }
 
         }
+
+        public void CreateConfigFile(char wormSymbol, char foodSymbol, int timeStamp)
+        {
+            XDocument doc = new XDocument(
+                new XElement("config",                
+                    new XElement("symbols",
+                        new XElement("worm", wormSymbol),
+                        new XElement("food", foodSymbol)),
+                    new XElement("timestamp", timeStamp)));
+            doc.Save("config.xml");
+        }
     }
 
     class Program
@@ -52,6 +64,7 @@ namespace ConsoleSimpleWorm
                 conf._WORM_SYMBOL, 
                 conf._FOOD_SYMBOL, 
                 conf._TIME_STAMP);
+            conf.CreateConfigFile('0', '*', 1000);
         }
     }
 }

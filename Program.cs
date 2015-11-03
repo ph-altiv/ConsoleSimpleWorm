@@ -53,6 +53,11 @@ namespace ConsoleSimpleWorm
                     new XElement("timestamp", timeStamp)));
             doc.Save("config.xml");
         }
+
+        public void CreateConfigFileDefault()
+        {
+            this.CreateConfigFile('0', '*', 1000);
+        }
     }
 
     class Program
@@ -64,7 +69,7 @@ namespace ConsoleSimpleWorm
                 conf._WORM_SYMBOL, 
                 conf._FOOD_SYMBOL, 
                 conf._TIME_STAMP);
-            conf.CreateConfigFile('0', '*', 1000);
+            conf.CreateConfigFileDefault();
         }
     }
 }

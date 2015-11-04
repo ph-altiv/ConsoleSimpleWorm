@@ -16,31 +16,11 @@ namespace ConsoleSimpleWorm
 
         public Configs()
         {
-            string str;
-            string[] ln;
-            StreamReader sr = new StreamReader("config");
-            Dictionary<String, String> dict = new Dictionary<String, String>();
-            while (!sr.EndOfStream)
-            {
-                str = sr.ReadLine();
-                if (str.Length <= 0)
-                    continue;
-                ln = str.Split('=');
-                if (ln.Length != 2)
-                    throw new ApplicationException("Error: incorrect file.");
-                dict.Add(ln[0], ln[1]);
-            }
-            try
-            {
-                _WORM_SYMBOL = dict["WormSymbol"][0];
-                _FOOD_SYMBOL = dict["FoodSymbol"][0];
-                _TIME_STAMP = Convert.ToInt32(dict["TimeStamp"]);
-            }
-            catch (Exception)
-            {
-                throw new ApplicationException("Error: incorrect file.");
-            }
-
+            XElement conf = XDocument.Load("config.xml").Root;
+            XElement syms = conf.Element("symbols");
+            _WORM_SYMBOL = syms.Element("worm").Value[0];
+            _FOOD_SYMBOL = syms.Element("food").Value[0];
+            _TIME_STAMP = Convert.ToInt32(conf.Element("timestamp").Value);
         }
 
         public void CreateConfigFile(char wormSymbol, char foodSymbol, int timeStamp)

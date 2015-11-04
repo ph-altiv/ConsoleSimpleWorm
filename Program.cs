@@ -10,12 +10,22 @@ namespace ConsoleSimpleWorm
     {
         static void Main(string[] args)
         {
-            Config conf = new Config();
+            Config conf = null;
+            do
+            {
+                try
+                {
+                    conf = new Config();
+                }
+                catch (Exception)
+                {
+                    ConfigFile.CreateConfigFileDefault();
+                }
+            } while (conf == null);
             Console.WriteLine("Configs: {0} {1} {2}", 
                 conf._WORM_SYMBOL, 
                 conf._FOOD_SYMBOL, 
                 conf._TIME_STAMP);
-            ConfigFile.CreateConfigFileDefault();
         }
     }
 }

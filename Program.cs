@@ -10,7 +10,7 @@ namespace ConsoleSimpleWorm
     {
         static void Main(string[] args)
         {
-            Configs conf = new Configs();
+            Config conf = new Config();
             Console.WriteLine("Configs: {0} {1} {2}", 
                 conf._WORM_SYMBOL, 
                 conf._FOOD_SYMBOL, 

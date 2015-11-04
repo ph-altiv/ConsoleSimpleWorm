@@ -8,12 +8,12 @@ using System.Xml.Linq;
 
 namespace ConsoleSimpleWorm
 {
-    class Configs
+    class Config
     {
         public readonly char _WORM_SYMBOL, _FOOD_SYMBOL;
         public readonly int _TIME_STAMP;
 
-        public Configs()
+        public Config()
         {
             XElement conf = XDocument.Load("config.xml").Root;
             XElement syms = conf.Element("symbols");

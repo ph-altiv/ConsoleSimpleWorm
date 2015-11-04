@@ -15,7 +15,7 @@ namespace ConsoleSimpleWorm
                 conf._WORM_SYMBOL, 
                 conf._FOOD_SYMBOL, 
                 conf._TIME_STAMP);
-            conf.CreateConfigFileDefault();
+            ConfigFile.CreateConfigFileDefault();
         }
     }
 }

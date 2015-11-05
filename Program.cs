@@ -8,9 +8,11 @@ namespace ConsoleSimpleWorm
 {
     class Program
     {
-        static void Main(string[] args)
+        static public Config conf;
+
+        static void AutoSetting()
         {
-            Config conf = null;
+            conf = null;
             do
             {
                 try
@@ -24,6 +26,11 @@ namespace ConsoleSimpleWorm
             } while (conf == null);
             Console.SetWindowSize(conf._FIELD_WIDTH, conf._FIELD_HEIGHT);
             Console.SetBufferSize(conf._FIELD_WIDTH, conf._FIELD_HEIGHT);
+        }
+
+        static void Main(string[] args)
+        {
+            AutoSetting();
             Console.WriteLine("Configs: {0} {1} {2}", 
                 conf._WORM_SYMBOL, 
                 conf._FOOD_SYMBOL, 

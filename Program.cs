@@ -30,6 +30,15 @@ namespace ConsoleSimpleWorm
             Console.SetBufferSize(Conf.FieldWidth, Conf.FieldHeight);
         }
 
+        static void PrintWormText(Worm worm)
+        {
+            for (int i = 0; i < worm.Length; i++)
+            {
+                Console.WriteLine("\t{0}: {1} x {2}", i, worm[i].X, worm[i].Y);
+            }
+            Console.WriteLine();
+        }
+
         static void Main(string[] args)
         {
             AutoSetting();
@@ -38,10 +47,7 @@ namespace ConsoleSimpleWorm
                 Conf.FoodSymbol, 
                 Conf.TimeStamp);
             Worm worm = new Worm(WormLen, (byte)((Conf.FieldWidth - WormLen) / 2), (byte)(Conf.FieldHeight / 2));
-            for(int i = 0; i<worm.Length; i++)
-            {
-                Console.WriteLine("\t{0}: {1} x {2}", i, worm[i].X, worm[i].Y); 
-            }
+            PrintWormText(worm);
             Direction d = Direction.Right;
             Console.WriteLine("Direction enum testing: {0}", d.ToString());
         }

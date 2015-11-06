@@ -40,6 +40,7 @@ namespace ConsoleSimpleWorm.Game_components
                 WormElement elem = new WormElement((byte)(headX - i), headY, false);
                 Elements.Add(elem);
             }
+            HeadDirection = Direction.Right;
         }
         
         public WormElement this[int index]
@@ -51,5 +52,7 @@ namespace ConsoleSimpleWorm.Game_components
         {
             get { return Elements.Count; }
         }
+
+        public Direction HeadDirection { get; set; }
     }
 }

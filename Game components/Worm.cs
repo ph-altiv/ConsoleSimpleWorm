@@ -25,9 +25,9 @@ namespace ConsoleSimpleWorm.Game_components
 
         public Worm(byte length, byte headX, byte headY)
         {
-            if (length >= Program.Conf._FIELD_WIDTH ||
+            if (length >= Program.Conf.FieldWidth ||
                 headX-length < 0 ||
-                headY >= Program.Conf._FIELD_HEIGHT)
+                headY >= Program.Conf.FieldHeight)
                     throw new ApplicationException("Error: worm does not fit in the field.");
             Elements = new List<WormElement>();
             for(byte i = 0; i<length; i++)

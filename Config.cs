@@ -31,19 +31,59 @@ namespace ConsoleSimpleWorm
     }
     class Config
     {
-        public readonly char _WORM_SYMBOL, _FOOD_SYMBOL;
-        public readonly int _FIELD_WIDTH, _FIELD_HEIGHT, _TIME_STAMP;
+        private readonly char wormsymbol, foodsymbol;
+        private readonly int fieldwidth, fieldheight, timestamp;
 
         public Config()
         {
             XElement conf = XDocument.Load("config.xml").Root;
             XElement field = conf.Element("field");
             XElement syms = conf.Element("symbols");
-            _FIELD_WIDTH = Convert.ToInt32(field.Attribute("width").Value);
-            _FIELD_HEIGHT = Convert.ToInt32(field.Attribute("height").Value);
-            _WORM_SYMBOL = syms.Element("worm").Value[0];
-            _FOOD_SYMBOL = syms.Element("food").Value[0];
-            _TIME_STAMP = Convert.ToInt32(conf.Element("timestamp").Value);
+            fieldwidth = Convert.ToInt32(field.Attribute("width").Value);
+            fieldheight = Convert.ToInt32(field.Attribute("height").Value);
+            wormsymbol = syms.Element("worm").Value[0];
+            foodsymbol = syms.Element("food").Value[0];
+            timestamp = Convert.ToInt32(conf.Element("timestamp").Value);
+        }
+
+        public char WormSymbol
+        {
+            get
+            {
+                return wormsymbol;
+            }
+        }
+
+        public char FoodSymbol
+        {
+            get
+            {
+                return foodsymbol;
+            }
+        }
+
+        public int FieldWidth
+        {
+            get
+            {
+                return fieldwidth;
+            }
+        }
+
+        public int FieldHeight
+        {
+            get
+            {
+                return fieldheight;
+            }
+        }
+
+        public int TimeStamp
+        {
+            get
+            {
+                return timestamp;
+            }
         }
     }
 }

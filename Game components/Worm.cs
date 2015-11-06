@@ -7,6 +7,11 @@ using System.Collections;
 
 namespace ConsoleSimpleWorm.Game_components
 {
+    enum Direction
+    {
+        Up, Right, Down, Left
+    }
+
     class WormElement : Element
     {
         public bool Food { get; protected set; }

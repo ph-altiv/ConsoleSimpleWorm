@@ -42,6 +42,8 @@ namespace ConsoleSimpleWorm
             {
                 Console.WriteLine("\t{0}: {1} x {2}", i, worm[i].X, worm[i].Y); 
             }
+            Direction d = Direction.Right;
+            Console.WriteLine("Direction enum testing: {0}", d.ToString());
         }
     }
 }

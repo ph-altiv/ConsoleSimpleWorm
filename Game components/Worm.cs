@@ -54,5 +54,38 @@ namespace ConsoleSimpleWorm.Game_components
         }
 
         public Direction HeadDirection { get; set; }
+
+        public bool Go(Direction headdirection) // 'true' if alive
+        {
+            if (Math.Abs(headdirection - HeadDirection) == 2)
+                return true;
+            HeadDirection = headdirection;
+            WormElement elem = Elements[0];
+            int x = elem.X, 
+                y = elem.Y;
+            if ((int)headdirection % 2 == 0)
+            {
+                y += (int)headdirection - 1;
+                if (y < 0)
+                    y = Program.Conf.FieldHeight - 1;
+                else if (y >= Program.Conf.FieldHeight)
+                    y = 0;
+            }
+            else
+            {
+                x -= (int)headdirection - 2;
+                if (x < 0)
+                    x = Program.Conf.FieldWidth - 1;
+                else if (x >= Program.Conf.FieldWidth)
+                    x = 0;
+            }
+            bool food = false;
+            Elements.Insert(0, new WormElement((byte)x, (byte)y, food));
+            elem = Elements[Elements.Count - 1];
+            Elements.Remove(elem);
+            if (elem.Food)
+                Elements.Add(new WormElement(elem.X, elem.Y, false));
+            return true;
+        }
     }
 }

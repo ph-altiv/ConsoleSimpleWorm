@@ -48,8 +48,15 @@ namespace ConsoleSimpleWorm
                 Conf.TimeStamp);
             Worm worm = new Worm(WormLen, (byte)((Conf.FieldWidth - WormLen) / 2), (byte)(Conf.FieldHeight / 2));
             PrintWormText(worm);
-            Direction d = Direction.Right;
-            Console.WriteLine("Direction enum testing: {0}", d.ToString());
+            worm.Go(Direction.Right);
+            PrintWormText(worm);
+            worm.Go(Direction.Left);
+            PrintWormText(worm);
+            worm.Go(Direction.Up);
+            PrintWormText(worm);
+            for (int i = 0; i < 16; i++)
+                worm.Go(Direction.Up);
+            PrintWormText(worm);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ConsoleSimpleWorm.Game_components;
 
@@ -39,6 +40,25 @@ namespace ConsoleSimpleWorm
             Console.WriteLine();
         }
 
+        static void PrintWorm(Worm worm)
+        {
+            for (int i = 0; i < worm.Length; i++)
+            {
+                Console.SetCursorPosition(worm[i].X, worm[i].Y);
+                Console.WriteLine(Conf.WormSymbol);
+            }
+        }
+
+        static void PrintAction(WormElement newhead, WormElement oldend)
+        {
+            Console.SetCursorPosition(newhead.X, newhead.Y);
+            Console.WriteLine(Conf.WormSymbol);
+            if (oldend.Food)
+                return;
+            Console.SetCursorPosition(oldend.X, oldend.Y);
+            Console.WriteLine(" ");
+        }
+
         static void Main(string[] args)
         {
             AutoSetting();
@@ -47,16 +67,13 @@ namespace ConsoleSimpleWorm
                 Conf.FoodSymbol, 
                 Conf.TimeStamp);
             Worm worm = new Worm(WormLen, (byte)((Conf.FieldWidth - WormLen) / 2), (byte)(Conf.FieldHeight / 2));
-            PrintWormText(worm);
-            worm.Go(Direction.Right);
-            PrintWormText(worm);
-            worm.Go(Direction.Left);
-            PrintWormText(worm);
-            worm.Go(Direction.Up);
-            PrintWormText(worm);
-            for (int i = 0; i < 16; i++)
-                worm.Go(Direction.Up);
-            PrintWormText(worm);
+            PrintWorm(worm);
+            while (true)
+            {
+                worm.Go(Direction.Right);
+                PrintAction(worm[1], worm.DeletedElement);
+                Thread.Sleep(50);
+            }
         }
     }
 }

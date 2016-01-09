@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,8 +28,8 @@ namespace ConsoleSimpleWorm
                     ConfigFile.CreateConfigFileDefault();
                 }
             } while (Conf == null);
-            Console.SetWindowSize(Conf.FieldWidth, Conf.FieldHeight);
-            Console.SetBufferSize(Conf.FieldWidth, Conf.FieldHeight);
+            Console.SetWindowSize(Conf.FieldWidth, Conf.FieldHeight+1);
+            Console.SetBufferSize(Conf.FieldWidth, Conf.FieldHeight+1);
         }
 
         static void PrintWormText(Worm worm)
@@ -62,17 +63,43 @@ namespace ConsoleSimpleWorm
         static void GameStart()
         {
             AutoSetting();
-            Console.WriteLine("Configs: {0} {1} {2}",
-                Conf.WormSymbol,
-                Conf.FoodSymbol,
-                Conf.TimeStamp);
+            Direction dir = Direction.Right;
+            ConsoleKeyInfo cki = new ConsoleKeyInfo();
             Worm worm = new Worm(WormLen, (byte)((Conf.FieldWidth - WormLen) / 2), (byte)(Conf.FieldHeight / 2));
             PrintWorm(worm);
             while (true)
             {
-                worm.Go(Direction.Right);
+                if (Console.KeyAvailable == true)
+                {
+                    cki = Console.ReadKey(true);
+                    KeyToDir(cki.Key, ref dir);
+                }
+                worm.Go(dir);
                 PrintAction(worm[0], worm.DeletedElement);
                 Thread.Sleep(200);
+            }
+        }
+
+        static void KeyToDir(ConsoleKey key, ref Direction dir)
+        {
+            switch(key)
+            {
+                case ConsoleKey.UpArrow:
+                    if(dir != Direction.Down)
+                        dir = Direction.Up;
+                    break;
+                case ConsoleKey.DownArrow:
+                    if (dir != Direction.Up)
+                        dir = Direction.Down;
+                    break;
+                case ConsoleKey.RightArrow:
+                    if (dir != Direction.Left)
+                        dir = Direction.Right;
+                    break;
+                case ConsoleKey.LeftArrow:
+                    if (dir != Direction.Right)
+                        dir = Direction.Left;
+                    break;
             }
         }
 

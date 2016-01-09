@@ -41,12 +41,16 @@ namespace ConsoleSimpleWorm.Game_components
                 Elements.Add(elem);
             }
             HeadDirection = Direction.Right;
+            DeletedElement = null;
         }
         
         public WormElement this[int index]
         {
             get { return Elements[index]; }
         }
+
+        public WormElement DeletedElement
+        { get; private set; }
 
         public int Length
         {
@@ -81,10 +85,13 @@ namespace ConsoleSimpleWorm.Game_components
             }
             bool food = false;
             Elements.Insert(0, new WormElement((byte)x, (byte)y, food));
-            elem = Elements[Elements.Count - 1];
-            Elements.Remove(elem);
+            DeletedElement = Elements[Elements.Count - 1];
+            Elements.Remove(DeletedElement);
             if (elem.Food)
-                Elements.Add(new WormElement(elem.X, elem.Y, false));
+            {
+                Elements.Add(new WormElement(DeletedElement.X, DeletedElement.Y, false));
+                DeletedElement = null;
+            }
             return true;
         }
     }

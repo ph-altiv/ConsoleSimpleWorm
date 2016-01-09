@@ -28,8 +28,11 @@ namespace ConsoleSimpleWorm
                     ConfigFile.CreateConfigFileDefault();
                 }
             } while (Conf == null);
-            Console.SetWindowSize(Conf.FieldWidth, Conf.FieldHeight+1);
-            Console.SetBufferSize(Conf.FieldWidth, Conf.FieldHeight+1);
+            
+            Console.SetWindowSize(Conf.FieldWidth, Conf.FieldHeight + 2);
+            Console.SetBufferSize(Conf.FieldWidth, Conf.FieldHeight + 2);
+            Console.CursorTop = Conf.FieldHeight+1;
+            for (int i = 0; i < Conf.FieldWidth; i++) Console.Write("█");
         }
 
         static void PrintWormText(Worm worm)

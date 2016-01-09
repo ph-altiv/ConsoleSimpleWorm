@@ -8,8 +8,8 @@ namespace ConsoleSimpleWorm.Game_components
 {
     class Element
     {
-        public byte X { get; protected set; }
+        public byte X { get; set; }
 
-        public byte Y { get; protected set; }
+        public byte Y { get; set; }
     }
 }

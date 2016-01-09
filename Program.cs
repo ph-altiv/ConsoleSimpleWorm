@@ -31,7 +31,7 @@ namespace ConsoleSimpleWorm
             
             Console.SetWindowSize(Conf.FieldWidth, Conf.FieldHeight + 2);
             Console.SetBufferSize(Conf.FieldWidth, Conf.FieldHeight + 2);
-            Console.CursorTop = Conf.FieldHeight+1;
+            Console.SetCursorPosition(0, Conf.FieldHeight+1);
             for (int i = 0; i < Conf.FieldWidth; i++) Console.Write("█");
         }
 
@@ -63,13 +63,22 @@ namespace ConsoleSimpleWorm
             Console.WriteLine(" ");
         }
 
+        static void PrintFood(Element pos)
+        {
+            Console.SetCursorPosition(pos.X, pos.Y);
+            Console.Write(Conf.FoodSymbol);
+        }
+
         static void GameStart()
         {
             AutoSetting();
             Direction dir = Direction.Right;
             ConsoleKeyInfo cki = new ConsoleKeyInfo();
             Worm worm = new Worm(WormLen, (byte)((Conf.FieldWidth - WormLen) / 2), (byte)(Conf.FieldHeight / 2));
+            Food food = new Food(Conf.FieldHeight, Conf.FieldWidth);
+            food.GenerateNewPos(worm);
             PrintWorm(worm);
+            PrintFood(food.Element);
             while (true)
             {
                 if (Console.KeyAvailable == true)

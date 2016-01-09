@@ -59,21 +59,26 @@ namespace ConsoleSimpleWorm
             Console.WriteLine(" ");
         }
 
-        static void Main(string[] args)
+        static void GameStart()
         {
             AutoSetting();
-            Console.WriteLine("Configs: {0} {1} {2}", 
-                Conf.WormSymbol, 
-                Conf.FoodSymbol, 
+            Console.WriteLine("Configs: {0} {1} {2}",
+                Conf.WormSymbol,
+                Conf.FoodSymbol,
                 Conf.TimeStamp);
             Worm worm = new Worm(WormLen, (byte)((Conf.FieldWidth - WormLen) / 2), (byte)(Conf.FieldHeight / 2));
             PrintWorm(worm);
             while (true)
             {
                 worm.Go(Direction.Right);
-                PrintAction(worm[1], worm.DeletedElement);
-                Thread.Sleep(50);
+                PrintAction(worm[0], worm.DeletedElement);
+                Thread.Sleep(200);
             }
+        }
+
+        static void Main(string[] args)
+        {
+            GameStart();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace ConsoleSimpleWorm.Game_components
             pos = new Element();
         }
 
-        public void GenerateNewPos(Worm worm)
+        public void GenerateNewPos(ref Worm worm)
         {
             pos.X = 0;
             pos.Y = 0;

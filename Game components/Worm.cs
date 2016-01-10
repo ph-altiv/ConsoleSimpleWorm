@@ -59,10 +59,10 @@ namespace ConsoleSimpleWorm.Game_components
 
         public Direction HeadDirection { get; set; }
 
-        public bool Go(Direction headdirection) // 'true' if alive
+        public bool Go(Direction headdirection, ref Food food) // 'true' if alive
         {
             if (Math.Abs(headdirection - HeadDirection) == 2)
-                return true;
+                return false;
             HeadDirection = headdirection;
             WormElement elem = Elements[0];
             int x = elem.X, 
@@ -83,8 +83,8 @@ namespace ConsoleSimpleWorm.Game_components
                 else if (x >= Program.Conf.FieldWidth)
                     x = 0;
             }
-            bool food = false;
-            Elements.Insert(0, new WormElement((byte)x, (byte)y, food));
+            bool bfood = (x == food.Element.X) && (y == food.Element.Y);
+            Elements.Insert(0, new WormElement((byte)x, (byte)y, bfood));
             DeletedElement = Elements[Elements.Count - 1];
             Elements.Remove(DeletedElement);
             if (elem.Food)
@@ -92,7 +92,7 @@ namespace ConsoleSimpleWorm.Game_components
                 Elements.Add(new WormElement(DeletedElement.X, DeletedElement.Y, false));
                 DeletedElement = null;
             }
-            return true;
+            return bfood;
         }
     }
 }

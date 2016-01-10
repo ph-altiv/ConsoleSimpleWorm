@@ -57,7 +57,7 @@ namespace ConsoleSimpleWorm
         {
             Console.SetCursorPosition(newhead.X, newhead.Y);
             Console.WriteLine(Conf.WormSymbol);
-            if (oldend.Food)
+            if (oldend==null)
                 return;
             Console.SetCursorPosition(oldend.X, oldend.Y);
             Console.WriteLine(" ");
@@ -76,7 +76,7 @@ namespace ConsoleSimpleWorm
             ConsoleKeyInfo cki = new ConsoleKeyInfo();
             Worm worm = new Worm(WormLen, (byte)((Conf.FieldWidth - WormLen) / 2), (byte)(Conf.FieldHeight / 2));
             Food food = new Food(Conf.FieldHeight, Conf.FieldWidth);
-            food.GenerateNewPos(worm);
+            food.GenerateNewPos(ref worm);
             PrintWorm(worm);
             PrintFood(food.Element);
             while (true)
@@ -86,7 +86,11 @@ namespace ConsoleSimpleWorm
                     cki = Console.ReadKey(true);
                     KeyToDir(cki.Key, ref dir);
                 }
-                worm.Go(dir);
+                if(worm.Go(dir, ref food))
+                {
+                    food.GenerateNewPos(ref worm);
+                    PrintFood(food.Element);
+                }
                 PrintAction(worm[0], worm.DeletedElement);
                 Thread.Sleep(200);
             }

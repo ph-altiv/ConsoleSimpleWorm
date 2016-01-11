@@ -23,12 +23,15 @@ namespace ConsoleSimpleWorm.Game_components
             pos = new Element();
         }
 
-        public void GenerateNewPos(ref Worm worm)
+        public bool GenerateNewPos(ref Worm worm)
         {
             pos.X = 0;
             pos.Y = 0;
             bool b = false;
-            for(int i=0; i< rand.Next(fieldSize - worm.Length); i = (b) ? i : i+1)
+            int fsl = fieldSize - worm.Length;
+            if (fsl <= 0) return false;
+            int r = rand.Next(fsl);
+            for (int i=0; i<r; i = (b) ? i : i+1)
             {
                 pos.X++;
                 if(pos.X >= maxX)
@@ -44,6 +47,7 @@ namespace ConsoleSimpleWorm.Game_components
                     j++;
                 }
             }
+            return true;
         }
 
         public Element Element

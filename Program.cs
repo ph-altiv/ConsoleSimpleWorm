@@ -91,10 +91,17 @@ namespace ConsoleSimpleWorm
                     Console.Clear();
                     Console.WriteLine("The end");
                     Console.ReadLine();
+                    return;
                 }
                 if((worm[0].X == food.Element.X) && (worm[0].Y == food.Element.Y))
                 { 
-                    food.GenerateNewPos(ref worm);
+                    if(!food.GenerateNewPos(ref worm))
+                    {
+                        Console.Clear();
+                        Console.WriteLine("You win");
+                        Console.ReadLine();
+                        return;
+                    }
                     PrintFood(food.Element);
                 }
                 PrintAction(worm[0], worm.DeletedElement);

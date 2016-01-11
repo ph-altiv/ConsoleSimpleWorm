@@ -92,7 +92,7 @@ namespace ConsoleSimpleWorm.Game_components
             Elements.Insert(0, new WormElement((byte)x, (byte)y, bfood));
             DeletedElement = Elements[Elements.Count - 1];
             Elements.Remove(DeletedElement);
-            if (elem.Food)
+            if (DeletedElement.Food)
             {
                 Elements.Add(new WormElement(DeletedElement.X, DeletedElement.Y, false));
                 DeletedElement = null;

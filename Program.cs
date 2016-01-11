@@ -86,8 +86,14 @@ namespace ConsoleSimpleWorm
                     cki = Console.ReadKey(true);
                     KeyToDir(cki.Key, ref dir);
                 }
-                if(worm.Go(dir, ref food))
+                if(!worm.Go(dir, ref food))
                 {
+                    Console.Clear();
+                    Console.WriteLine("The end");
+                    Console.ReadLine();
+                }
+                if((worm[0].X == food.Element.X) && (worm[0].Y == food.Element.Y))
+                { 
                     food.GenerateNewPos(ref worm);
                     PrintFood(food.Element);
                 }
